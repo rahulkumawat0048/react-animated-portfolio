@@ -1,20 +1,15 @@
 import { useState } from "react";
-import {
-  FaBars,
-  FaTimes,
-  FaGithub,
-  FaLinkedin,
-} from "react-icons/fa";
+import { FaBars, FaTimes, FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Experience", href: "#experience" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Experience", id: "experience" },
+    { name: "Projects", id: "projects" },
+    { name: "Contact", id: "contact" },
   ];
 
   const socialLinks = [
@@ -29,6 +24,23 @@ export default function Navbar() {
       label: "GitHub",
     },
   ];
+
+  // Smooth scroll function
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const navbarHeight = 80; // adjust if your navbar height is different
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      setOpen(false); // close mobile menu if open
+    }
+  };
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur border-b border-white/10">
@@ -46,16 +58,16 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 text-sm text-gray-300">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
+            <button
+              key={link.id}
+              onClick={() => handleScroll(link.id)}
               className="hover:text-purple-400 hover:underline underline-offset-8 transition"
             >
               {link.name}
-            </a>
+            </button>
           ))}
 
-          {/* Social Icons - Desktop */}
+          {/* Social Icons */}
           <div className="flex items-center space-x-4 ml-4">
             {socialLinks.map((item, i) => (
               <a
@@ -86,17 +98,16 @@ export default function Navbar() {
         <div className="md:hidden bg-black/95 border-t border-white/10">
           <div className="flex flex-col items-center space-y-6 py-6 text-gray-300 text-sm">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setOpen(false)}
+              <button
+                key={link.id}
+                onClick={() => handleScroll(link.id)}
                 className="hover:text-purple-400 transition"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
 
-            {/* Social Icons - Mobile */}
+            {/* Social Icons */}
             <div className="flex space-x-6 pt-4">
               {socialLinks.map((item, i) => (
                 <a

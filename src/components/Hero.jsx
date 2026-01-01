@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import profile from "../assets/images/profile.jpg"
+import profile from "../assets/images/profile.jpg";
 
 const text = "Full Stack Developer";
 
@@ -32,15 +32,32 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="min-h-screen flex items-center bg-black"
+      className="md:min-h-screen min-h-[900px]  flex items-center bg-black"
     >
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-        
-        {/* LEFT TEXT */}
+        {/* IMAGE – mobile top */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="flex justify-center order-1 md:order-2"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 rounded-full blur-3xl bg-purple-600/30"></div>
+            <img
+              src={profile}
+              alt="profile"
+              className="relative md:w-72 md:h-72 h-56 w-56 rounded-full border-4 border-purple-500 object-cover"
+            />
+          </div>
+        </motion.div>
+
+        {/* TEXT – mobile bottom */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
+          className="order-2 md:order-1"
         >
           <p className="text-gray-400 text-xl mb-2">Hi, I am</p>
 
@@ -48,7 +65,6 @@ export default function Hero() {
             Rahul <span className="text-purple-500">Kumawat</span>
           </h1>
 
-          {/* Animated Typing Text */}
           <div className="h-10 mt-4">
             <span className="text-2xl text-purple-400 font-medium tracking-wide">
               {displayText}
@@ -57,35 +73,21 @@ export default function Hero() {
           </div>
 
           <p className="text-gray-400 max-w-xl mt-6">
-            I am a full-stack MERN developer. Skilled in both front-end and back-end development, I specialize in the MERN stack and other modern technologies to create seamless user experiences and efficient solutions.
+            I am a full-stack MERN developer. Skilled in both front-end and
+            back-end development, I specialize in the MERN stack and modern
+            technologies.
           </p>
 
           <div className="flex gap-4 mt-10">
-            <button className="px-7 py-3 text-white font-bold rounded-full bg-purple-600 hover:bg-purple-700 transition shadow-lg shadow-purple-500/30">
+            <a
+              href="/Rahul's Resume.pdf"
+              download
+              className="px-7 py-3 text-white font-bold rounded-full hover:scale-110 transition bg-purple-600 hover:bg-purple-700 duration-300 shadow-lg shadow-purple-500/30"
+            >
               Download CV
-            </button>
-
-            
+            </a>
           </div>
         </motion.div>
-
-        {/* RIGHT IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="flex justify-center"
-        >
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full blur-3xl bg-purple-600/30"></div>
-            <img
-              src={profile}   // apni image yaha rakho
-              alt="profile"
-              className="relative w-72 h-72 rounded-full border-4 border-purple-500 object-cover"
-            />
-          </div>
-        </motion.div>
-
       </div>
     </section>
   );
