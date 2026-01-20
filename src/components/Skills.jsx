@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 export default function Skills() {
   const skills = [
     "Java",
+    "C++",
     "DSA",
     "React",
     "Node.js",

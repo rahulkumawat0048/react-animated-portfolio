@@ -32,7 +32,7 @@ export default function Hero() {
   return (
     <section
       id="about"
-      className="md:min-h-screen min-h-[900px]  flex items-center bg-black"
+      className="md:min-h-screen min-h-[900px] justify-center  flex items-center bg-black"
     >
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
         {/* IMAGE – mobile top */}
@@ -80,7 +80,7 @@ export default function Hero() {
 
           <div className="flex gap-4 mt-10">
             <a
-              href="/Rahul's Resume.pdf"
+              href="/Rahul's Resumeg.pdf"
               download
               className="px-7 py-3 text-white font-bold rounded-full hover:scale-110 transition bg-purple-600 hover:bg-purple-700 duration-300 shadow-lg shadow-purple-500/30"
             >
