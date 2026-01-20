@@ -80,7 +80,7 @@ export default function Hero() {
 
           <div className="flex gap-4 mt-10">
             <a
-              href="/Rahul's Resumeg.pdf"
+              href="/Rahul's Resume.pdf"
               download
               className="px-7 py-3 text-white font-bold rounded-full hover:scale-110 transition bg-purple-600 hover:bg-purple-700 duration-300 shadow-lg shadow-purple-500/30"
             >
