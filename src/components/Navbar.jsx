@@ -1,10 +1,9 @@
-import { useState } from "react";
-import {motion} from "framer-motion"
-import { FaBars, FaTimes, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useState, useCallback } from "react";
+import { motion } from "framer-motion";
+import { FaBars, FaTimes, FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
 
   const navLinks = [
     { name: "About", id: "about" },
@@ -19,16 +18,24 @@ export default function Navbar() {
     { icon: <FaGithub />, href: "https://github.com/rahulkumawat0048", label: "GitHub" },
   ];
 
-  const handleScroll = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const navbarHeight = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - navbarHeight;
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-      setOpen(false);
-    }
-  };
+  const handleScroll = useCallback((id) => {
+    // Close mobile menu first
+    setOpen(false);
+    
+    // Use requestAnimationFrame for better timing on mobile devices
+    requestAnimationFrame(() => {
+      // Small delay to ensure menu animation starts
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          const navbarHeight = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight;
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+      }, 100); // Delay matches mobile menu animation
+    });
+  }, []);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/10">
@@ -63,6 +70,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 text-lg transition-all duration-300 hover:text-purple-400 hover:scale-110"
+                aria-label={item.label}
               >
                 {item.icon}
               </a>
@@ -71,7 +79,11 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-white text-2xl" onClick={() => setOpen(!open)}>
+        <button 
+          className="md:hidden text-white text-2xl" 
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
           {open ? <FaTimes /> : <FaBars />}
         </button>
       </div>
@@ -101,6 +113,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 text-2xl transition-all hover:text-purple-400"
+                aria-label={item.label}
               >
                 {item.icon}
               </a>
